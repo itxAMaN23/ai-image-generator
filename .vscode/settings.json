@@ -1,0 +1,6 @@
+{
+  "postman.settings.dotenv-detection-notification-visibility": false,
+  "typescript.preferences.includePackageJsonAutoImports": "off",
+  "typescript.disableAutomaticTypeAcquisition": true,
+  "typescript.validate.enable": false
+}
