@@ -14,8 +14,12 @@ import { useAuth } from "../context/LoginContext";
 
 const AI_MODELS = [
   {
-    value: "google/gemini-2.5-flash:free",
-    label: "Gemini 2.5 Flash (Free)",
+    value: "google/gemini-2.5-flash",
+    label: "Gemini 2.5 Flash (New)",
+  },
+  {
+    value: "bytedance/seedream-4",
+    label: "Seedream 4 (New)",
   },
   {
     value: "fal-ai/nano-banana",
@@ -36,7 +40,7 @@ const AI_MODELS = [
   },
   {
     value: "stabilityai/sdxl-turbo:free",
-    label: "SDXL Turbo",
+    label: "SDXL Turbo (Free)",
   },
   {
     value: "lodestones/Chroma:free",
@@ -44,7 +48,7 @@ const AI_MODELS = [
   },
   {
     value: "HiDream-ai/HiDream-I1-Full:free",
-    label: "HiDream i1 Full",
+    label: "HiDream i1 Full (Free)",
   },
   {
     value: "fal-ai/minimax/image-01",
@@ -117,7 +121,11 @@ const GeneratePage = () => {
     try {
       let response = "";
 
-      if (model.includes(":free")) {
+      if (
+        model.includes(":free") ||
+        model.includes("seedream") ||
+        model.includes("gemini-2.5-flash")
+      ) {
         const selectedAspect = LOW_ASPECTS.find((a) => a.key === aspect);
         response = await axios.post(
           `${import.meta.env.VITE_BACKEND_BASE_URL}/api/image/generate`,

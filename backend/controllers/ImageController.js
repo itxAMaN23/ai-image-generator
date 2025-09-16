@@ -26,7 +26,11 @@ export const GenerateImages = async (req, res) => {
       return res.status(403).json({ message: "Insufficient credits." });
     }
 
-    if (model.includes(":free")) {
+    if (
+      model.includes(":free") ||
+      model.includes("seedream") ||
+      model.includes("gemini-2.5-flash")
+    ) {
       response = await axios.post(
         `https://api.imagerouter.io/v1/openai/images/generations`,
         {
