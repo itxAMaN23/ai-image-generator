@@ -4,7 +4,7 @@ A powerful full-stack web application that transforms text prompts into stunning
 
 ## 🌟 Live Demo
 
-🔗 **[Visit Live Application](#)**
+🔗 **[Visit Live Website](https://imagiverse-frontend.onrender.com)**
 
 ## ✨ Features
 
