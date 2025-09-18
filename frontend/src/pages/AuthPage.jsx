@@ -4,10 +4,12 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useAuth } from "../context/LoginContext";
 import { useNavigate } from "react-router-dom";
+import Loader from "../components/Loader";
 
 const AuthPage = () => {
   const [isLoginpage, setLoginpage] = useState(true);
-  const { isLogin, Login } = useAuth();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { isLogin, Login, isLoading } = useAuth();
 
   const navigate = useNavigate();
 
@@ -21,10 +23,14 @@ const AuthPage = () => {
     }
   }, [isLogin]);
 
-  const handleAuthSubmit = async (formData) => {
-    if (isLoginpage) {
-      try {
+  if (isLoading) {
+    return <Loader />;
+  }
 
+  const handleAuthSubmit = async (formData) => {
+    setIsSubmitting(true);
+    try {
+      if (isLoginpage) {
         const res = await axios.post(
           `${import.meta.env.VITE_BACKEND_BASE_URL}/api/auth/login`,
           {
@@ -44,11 +50,7 @@ const AuthPage = () => {
         } else {
           toast.error("Login failed: Invalid response from server.");
         }
-      } catch (error) {
-        toast.error(error.response?.data?.message);
-      }
-    } else {
-      try {
+      } else {
         const res = await axios.post(
           `${import.meta.env.VITE_BACKEND_BASE_URL}/api/auth/register`,
           {
@@ -60,9 +62,11 @@ const AuthPage = () => {
 
         toast.success(res.data.message);
         setLoginpage(true);
-      } catch (error) {
-        toast.error(error.response.data.message);
       }
+    } catch (error) {
+      toast.error(error.response?.data?.message);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
