@@ -13,8 +13,7 @@ export const getAllUsers = async (req, res) => {
       users: allUsers,
     });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Server error", info: err });
+    res.status(500).json({ message: "Server error", info: err.message });
   }
 };
 
@@ -22,8 +21,7 @@ export const CurrentUser = (req, res) => {
   try {
     res.status(200).json(req.user);
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Server error", info: err });
+    res.status(500).json({ message: "Server error", info: err.message });
   }
 };
 
@@ -65,8 +63,7 @@ export const RegisterUser = async (req, res) => {
       },
     });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Server error", info: err });
+    res.status(500).json({ message: "Server error", info: err.message });
   }
 };
 
@@ -92,7 +89,7 @@ export const LoginUser = async (req, res) => {
         email: userExists.email,
       },
       process.env.JWT_SECRET || "SecretKey",
-      { expiresIn: "1d" }
+      { expiresIn: "1d" },
     );
 
     await UserModel.findByIdAndUpdate(userExists._id, {
@@ -109,7 +106,6 @@ export const LoginUser = async (req, res) => {
       userInfo: [userData],
     });
   } catch (err) {
-    console.error("[ERROR IN LOGIN]: ", err.message);
     res.status(500).json({ message: "Server error", info: err.message });
   }
 };

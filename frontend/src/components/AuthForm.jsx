@@ -20,7 +20,7 @@ const AuthForm = ({ isLogin, onSubmit }) => {
     try {
       await onSubmit(formData);
     } catch (error) {
-      console.log(error);
+      // Error is handled by parent component via toast
     } finally {
       setIsLoading(false);
     }

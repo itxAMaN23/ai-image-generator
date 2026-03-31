@@ -23,7 +23,7 @@ const ProfilePage = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_BACKEND_BASE_URL}/user/${username}`
+          `${import.meta.env.VITE_BACKEND_BASE_URL}/user/${username}`,
         );
         setUserData(response.data.data);
         toast.success("User Profile Loaded.");
@@ -54,7 +54,7 @@ const ProfilePage = () => {
               headers: {
                 Authorization: `Bearer ${token}`,
               },
-            }
+            },
           );
           if (resp.ok) {
             const loggedInUser = await resp.json();
@@ -66,7 +66,7 @@ const ProfilePage = () => {
             setFeaturedCreation(feature);
           }
         } catch (error) {
-          console.error("Failed to fetch logged-in user:", error);
+          // Silently handle error - user will see default state
         }
       }
     };
@@ -85,12 +85,11 @@ const ProfilePage = () => {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        }
+        },
       );
       const feature = userData.creations.filter((data) => data._id === imageId);
       setFeaturedCreation(feature[0].imageUrl);
     } catch (error) {
-      console.error("Failed to update featured image:", error);
       toast.error("Failed to update featured image.");
     }
 
@@ -136,7 +135,7 @@ const ProfilePage = () => {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-      }
+      },
     );
 
     toast.promise(uploadAvatar, {
@@ -155,7 +154,6 @@ const ProfilePage = () => {
         handleCancelClick();
       })
       .catch((error) => {
-        console.error("Upload failed:", error);
         toast.error(error.message || "Upload failed.");
         handleCancelClick();
       });

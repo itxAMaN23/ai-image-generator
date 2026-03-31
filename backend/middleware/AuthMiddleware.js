@@ -3,6 +3,11 @@ import UserModel from "../models/User.js";
 
 export const AuthMiddleware = async (req, res, next) => {
   try {
+    if (!process.env.JWT_SECRET)
+      return res
+        .status(500)
+        .json({ message: "JWT_SECRET environment variable is not set." });
+
     const token = req.header("Authorization")?.replace("Bearer ", "");
 
     if (!token) {
@@ -11,13 +16,10 @@ export const AuthMiddleware = async (req, res, next) => {
         .json({ message: "No token, authorization denied" });
     }
 
-    const decodeToken = jwt.verify(
-      token,
-      process.env.JWT_SECRET || "SecretKey"
-    );
+    const decodeToken = jwt.verify(token, process.env.JWT_SECRET);
 
     const currentUser = await UserModel.findById(decodeToken.id).select(
-      "-password"
+      "-password",
     );
 
     if (!currentUser)

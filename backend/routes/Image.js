@@ -8,11 +8,10 @@ import {
   FeaturedImage,
 } from "../controllers/ImageController.js";
 import { AuthMiddleware } from "../middleware/AuthMiddleware.js";
-import { checkCredits } from "../middleware/checkCredits.js";
 
 const router = express.Router();
 
-router.post("/generate", AuthMiddleware, checkCredits, GenerateImages);
+router.post("/generate", AuthMiddleware, GenerateImages);
 router.get("/myImages", AuthMiddleware, MyImages);
 router.post("/featured-image", AuthMiddleware, FeaturedImage);
 router.get("/images", PublicImages);

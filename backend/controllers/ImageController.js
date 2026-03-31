@@ -36,14 +36,17 @@ export const GenerateImages = async (req, res) => {
         {
           prompt,
           model,
-          size: `${width}x${height}`,
+          size:
+            model === "google/nano-banana-2:free"
+              ? "512x512"
+              : `${width}x${height}`,
         },
         {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${process.env.IMAGEROUTER_API_KEY}`,
           },
-        }
+        },
       );
 
       imageUrl = response.data?.data[0]?.url;
@@ -61,7 +64,7 @@ export const GenerateImages = async (req, res) => {
             "Content-Type": "application/json",
             Authorization: `Key ${process.env.FAL_API_KEY}`,
           },
-        }
+        },
       );
 
       imageUrl = response.data?.images[0]?.url;
@@ -79,7 +82,7 @@ export const GenerateImages = async (req, res) => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${process.env.IMAGE_API_KEY}`,
           },
-        }
+        },
       );
 
       imageUrl = response.data.data[0].url;
@@ -115,7 +118,7 @@ export const GenerateImages = async (req, res) => {
         $push: { creations: result._id },
         $inc: { credits: -COST_PER_GENERATION },
       },
-      { new: true }
+      { new: true },
     ).select("-password");
 
     res.status(201).json({

@@ -29,7 +29,7 @@ export const LoginProvider = ({ children }) => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       if (resp.ok) {
@@ -42,7 +42,6 @@ export const LoginProvider = ({ children }) => {
         setCurrentUser(null);
       }
     } catch (error) {
-      console.error("Failed to fetch user:", error);
       localStorage.removeItem("token");
       setIsLogin(false);
       setCurrentUser(null);

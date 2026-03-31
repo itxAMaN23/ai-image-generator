@@ -23,8 +23,6 @@ export const UserProfile = async (req, res) => {
       data: userInfo,
     });
   } catch (error) {
-    console.error("Error fetching user profile:", error);
-
     res.status(500).json({
       success: false,
       message: "An internal server error occurred. Please try again later.",
@@ -55,7 +53,6 @@ export const changeAvatar = async (req, res) => {
       newImageUrl: newImageUrl,
     });
   } catch (error) {
-    console.error("Error in changeAvatar controller:", error);
     res.status(500).json({ message: "Server error while updating avatar." });
   }
 };

@@ -14,8 +14,20 @@ import { useAuth } from "../context/LoginContext";
 
 const AI_MODELS = [
   {
+    value: "google/nano-banana-2:free",
+    label: "Nano Banana 2 (New)",
+  },
+  {
     value: "google/gemini-2.5-flash",
     label: "Gemini 2.5 Flash (New)",
+  },
+  {
+    value: "black-forest-labs/FLUX-2-klein-4b:free",
+    label: "Flux.2 Klein 4B (New)",
+  },
+  {
+    value: "openai/gpt-image-1.5:free",
+    label: "GPT Image 1.5 (Free)",
   },
   {
     value: "bytedance/seedream-4",
@@ -141,7 +153,7 @@ const GeneratePage = () => {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
               "Content-Type": "application/json",
             },
-          }
+          },
         );
       } else if (model.includes("fal-ai")) {
         const selectedAspect = ASPECTS.find((a) => a.key === aspect);
@@ -160,7 +172,7 @@ const GeneratePage = () => {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
               "Content-Type": "application/json",
             },
-          }
+          },
         );
       } else if (model.includes("black-forest-labs/")) {
         const selectedAspect = ASPECTS.find((a) => a.key === aspect);
@@ -178,7 +190,7 @@ const GeneratePage = () => {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
               "Content-Type": "application/json",
             },
-          }
+          },
         );
       } else {
         toast.error("An unknown model was selected.");
@@ -190,7 +202,7 @@ const GeneratePage = () => {
       updateUserCredits(response.data?.credits);
     } catch (err) {
       toast.error(
-        err.message || err.response?.data?.message || "An error occurred"
+        err.message || err.response?.data?.message || "An error occurred",
       );
     } finally {
       setIsGenerating(false);

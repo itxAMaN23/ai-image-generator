@@ -29,7 +29,7 @@ const ImagePage = () => {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
-          }
+          },
         );
         setImage(data.data.image);
       } catch (error) {
@@ -76,13 +76,12 @@ const ImagePage = () => {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        }
+        },
       );
       toast.success("Image deleted successfully!");
       navigate("/my-images");
     } catch (error) {
       toast.error("Failed to delete image.");
-      console.error("Delete failed:", error);
     }
   };
 
@@ -95,7 +94,10 @@ const ImagePage = () => {
   const modelNameMap = {
     "google/gemini-2.5-flash:free": "Gemini 2.5 Flash (Free)",
     "fal-ai/nano-banana": "Nano Banana (New)",
+    "openai/gpt-image-1.5:free": "GPT Image 1.5 (Free)",
+    "google/nano-banana-2:free": "Nano Banana 2 (New)",
     "black-forest-labs/FLUX.1-krea-dev": "Flux.1 Krea Dev (New)",
+    "black-forest-labs/FLUX-2-klein-4b:free": "Flux.2 Klein 4B (Free)",
     "black-forest-labs/FLUX.1-depth": "Flux.1 Depth",
     "black-forest-labs/FLUX.1-schnell-Free": "Flux.1 Schnell (Free)",
     "black-forest-labs/FLUX.1-dev": "Flux.1 Dev",

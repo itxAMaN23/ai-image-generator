@@ -57,6 +57,7 @@ desktop.ini
 # Temporary folders
 tmp/
 temp/
+.qoder
 
 # Package lock files (uncomment if needed)
 # package-lock.json
